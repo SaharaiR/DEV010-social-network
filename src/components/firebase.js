@@ -1,8 +1,7 @@
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-
+import { getFirestore } from 'firebase/firestore';
 
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -28,6 +27,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 // En esta variable esta guardada la app de Firebase.
-export const firebaseApp = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
+export const db = getFirestore(firebaseApp);
 export default firebaseApp;
 // En esta variable le instalo el auth a la app.

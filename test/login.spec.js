@@ -1,7 +1,6 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'; // Importa la función que quieres probar
-import { async } from 'regenerator-runtime';
 import { expect } from '@playwright/test';
-import { autenticacionUser } from './login.js';
+import { autenticacionUser } from '../src/components/login.js';
 
 // Creamos un mock para getAuth
 jest.mock('firebase/auth', () => ({
@@ -13,19 +12,18 @@ describe('autenticacionUser', () => {
   it('deberia autenticar al usuario correctamente', async () => {
     const email = 'test@example.com';
     const password = 'password123';
-    const resolvedValue = 'Inicio de sesion exitoso';
 
     // Configura el mock para getAuth
     const mockAuth = getAuth();
     const signInMock = signInWithEmailAndPassword(mockAuth, email, password);
-    signInMock.mockResolvedValue(undefined); /* que valor se puede poner aca */
+    signInMock.mockResolvedValue({ uid: 'usuario123', email: 'test@example.com' });
 
     // Llama a la función que estás probando
     const result = await autenticacionUser(email, password);
     // Verifica que la función se haya llamado con los argumentos correctos
     expect(signInMock).toHaveBeenCalledWith(mockAuth, email, password);
     // Verifica que la función retorne el valor esperado
-    expect(result).toBe(resolvedValue);
+    expect(result).toEqual({ uid: 'usuario123', email: 'test@example.com' });
   });
 
   it('deberia manejar errores de autenticacion', async () => {

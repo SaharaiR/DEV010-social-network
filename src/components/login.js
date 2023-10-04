@@ -4,7 +4,7 @@ import {
 
 import firebaseApp from './firebase.js';
 
-function login(navigateTo) {
+function login() {
   const logo = document.createElement('img');
   logo.setAttribute('src', '/assets/Colective_isCool!_(1).png');
   logo.setAttribute('alt', 'Colective_isCool');
@@ -52,17 +52,17 @@ function login(navigateTo) {
   loginButton.setAttribute('disabled', true);
 
   function autenticacionUser(email, password) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const Auth = getAuth(firebaseApp);
-        await signInWithEmailAndPassword(Auth, email, password);
-        resolve('Inicio de sesion exitoso');
-      } catch (error) {
-        reject(`Error al iniciar sesion: ${error.message}`);
-      }
+    return new Promise((resolve, reject) => {
+      const Auth = getAuth(firebaseApp);
+      signInWithEmailAndPassword(Auth, email, password)
+        .then(() => {
+          resolve('Inicio de sesion exitoso');
+        })
+        .catch((error) => {
+          reject(`Error al iniciar sesion: ${error.message}`);
+        });
     });
   }
-
   function verificarCampos() {
     const email = emailInput.value;
     const password = passwordInput.value;
@@ -112,15 +112,14 @@ function login(navigateTo) {
   });
 
   // creamos opcion para inicar sesion con google
-  const googleSignInOption = document.createElement('p');
-  const googleSignInLink = document.createElement('a');
-  googleSignInLink.textContent = 'Iniciar Sesión con Google';
-  googleSignInLink.setAttribute('href', '/auth/google'); // poner url
-  googleSignInLink.classList = 'iniciar-sesion-con-google';
-
+  const googleSignInOption = document.createElement('div');
+  const googleSignInLink = document.createElement('img');
+  googleSignInLink.setAttribute('id', 'googleSignInLink');
+  googleSignInLink.setAttribute('src', '/assets/btn_google_signin_dark_normal_web@2x.png'); // poner url
+  googleSignInLink.setAttribute('alt', 'Google Sign-In');
   googleSignInOption.appendChild(googleSignInLink);
 
-  googleSignInLink.addEventListener('click', async (e) => {
+  googleSignInLink.addEventListener('click', (e) => {
     e.preventDefault(); // evita que el enlace cambie de pagina (usamos "#" como href)
 
     const auth = getAuth(firebaseApp);
@@ -130,6 +129,7 @@ function login(navigateTo) {
       .then((result) => {
         const user = result.user;
         console.log('Inicio de sesion con Google exitoso:', user);
+        window.location.href = './timeLine';
       })
       .catch((error) => {
         console.error('Error al iniciar sesion con Google:', error);
@@ -147,7 +147,6 @@ function login(navigateTo) {
     forgotPasswordLink,
     loginButton,
     googleSignInOption,
-    logoGoogle,
   );
   return section;
 }
