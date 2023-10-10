@@ -4,7 +4,7 @@ import error from './components/error.js';
 import recover from './components/recover.js';
 import newUser from './components/NewUserForm.js';
 import preferences from './components/preferences.js';
-import timeLine from './components/timeLine.js';
+import TimeLine from './components/timeLine.js';
 
 const root = document.getElementById('root');
 
@@ -14,7 +14,7 @@ const routes = [
   { path: '/recover', component: recover },
   { path: '/newUser', component: newUser },
   { path: '/preferences', component: preferences },
-  { path: '/timeLine', component: timeLine },
+  { path: '/timeLine', component: TimeLine },
 ];
 
 const defaultRoute = '/';
