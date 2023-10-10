@@ -14,7 +14,7 @@
     "htmlhint": "htmlhint dist/*.html ",
     "eslint": "eslint --ext .js src/ test/",
     "stylelint": "stylelint --aei src/**/*.css",
-    "pretest": "npm run htmlhint && npm run eslint && npm run stylelint",
+    "_pretest": "npm run htmlhint && npm run eslint && npm run stylelint",
     "test": "jest --env=jsdom --coverage",
     "testing": "jest --wacht",
     "dev": "vite dev src",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.19.4",
+    "@firebase/rules-unit-testing": "^3.0.1",
     "eslint": "^8.3.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.18.2",

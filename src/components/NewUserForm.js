@@ -1,9 +1,12 @@
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import logo from '../img/logo.png';
+import shutEye from '../assets/shutEye.png';
+import openEye from '../assets/openEye.png';
 
-function newUser(navigateTo) {
+function newUser() {
   const newUserForm = document.createElement('section');
 
-  newUserForm.innerHTML = `<img id="logo" src= "img/logo.png">
+  newUserForm.innerHTML = `<img id="logo" src= "${logo}">
    <h2 id="title">Nuevos usuarios</h2>
     <form id="newUserUl">
         <ul id="register">
@@ -29,11 +32,11 @@ function newUser(navigateTo) {
       if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
         repeatPasswordInput.type = 'text';
-        btn.style.backgroundImage = 'url(assets/openEye.png)';
+        btn.setAttribute('style', `background-image: url(${openEye})`);
       } else {
         passwordInput.type = 'password';
         repeatPasswordInput.type = 'password';
-        btn.style.backgroundImage = 'url(assets/shutEye.png)';
+        btn.setAttribute('style', `background-image: url(${shutEye})`);
       }
     });
   });
@@ -41,7 +44,7 @@ function newUser(navigateTo) {
   registerForm.addEventListener('submit', (event) => {
     event.preventDefault(); // Para que el formulario no se envíe automáticamente.
 
-    const name = document.getElementById('name').value;
+    // const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const repeatPass = document.getElementById('repeatPass').value;
@@ -58,15 +61,7 @@ function newUser(navigateTo) {
 
     const userEmail = email;
     const userPassword = password;
-    const userData = {
-      name,
-      email,
-      password,
-    };
 
-    /* console.log(userData);
-    console.log(userEmail);
-    console.log(userPassword); */
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, userEmail, userPassword)
       .then((userCredential) => {

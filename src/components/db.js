@@ -6,9 +6,10 @@ const savePost = (userID, icon, post) => {
   addDoc(
     collection(db, 'dataBase2'),
     {
-      userID, icon, post, time: serverTimestamp(),
+      userID, icon, post, likes: 0, time: serverTimestamp(),
     },
   );
+  return 'Post creado';
 };
 
 export default savePost;

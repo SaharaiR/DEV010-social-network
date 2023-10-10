@@ -2,6 +2,7 @@
 
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -28,6 +29,10 @@ const firebaseConfig = {
 // Initialize Firebase
 // En esta variable esta guardada la app de Firebase.
 const firebaseApp = initializeApp(firebaseConfig);
-export const db = getFirestore(firebaseApp);
+const db = getFirestore(firebaseApp);
+const auth = getAuth(firebaseApp);
+
 export default firebaseApp;
+export { db, auth };
+
 // En esta variable le instalo el auth a la app.
